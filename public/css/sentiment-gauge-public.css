@@ -1,0 +1,93 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+ 
+[data-align="center"] > .gauge {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+[data-align="right"] > .gauge {
+    left: 100%;
+    transform: translateX(-100%);
+}
+ 
+.gauge {
+  --width: 400px;
+  --deg: calc(90deg - (180deg * (1 - (var(--percent)/100))));
+  
+  display: inline-block;
+  position: relative;
+  max-height: calc(var(--width) * 0.85);
+  overflow: hidden;
+}
+
+/* Title */
+.gauge > .element > .title {
+    display: block;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: calc((var(--width) * 0.85) - 45px);
+}
+
+.gauge > .element {
+  position: relative;
+  width: var(--width);
+  height: var(--width);
+  border: 10px solid #333;
+  border-radius: 50%;
+  border-bottom: 10px solid transparent;
+  user-select: none;
+  background:
+    /*small circle in center */
+    radial-gradient(ellipse at center, var(--color) 0%, var(--color) 2%, transparent 2%, transparent 3%),
+
+    /* bottom cut off area */
+    linear-gradient(to top, #fff 0%, #fff 14%, transparent 14%, transparent 15%),
+
+    /* a radial gradient to show only a part of the gradient (20px here)*/
+    radial-gradient(ellipse at center, #ffffff 0%, #ffffff 2%, #ffffff 60%, transparent 60%, transparent 61%),
+
+    /* the main gradient */
+    conic-gradient(from 180deg at 50% 50%, red 0%, yellow 49%, green 100%);
+}
+
+/* Pin */
+.gauge > .element:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    width: 20px;
+    height: calc((var(--width) / 2) - 10px);
+    transform: rotate(var(--deg)) translateX(-50%);
+    transform-origin: 0% 100%;
+    transition: transform 0.15s ease;
+    
+    background-color: var(--color);
+    
+    mask-image: url("../images/pin.png");
+    mask-repeat: no-repeat;
+    mask-position: bottom;
+    mask-size: 100%;
+    
+    -webkit-mask-image: url("../images/pin.png");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: bottom;
+    -webkit-mask-size: 100%;
+}
+
+/* Percent */
+.gauge > .element:before {
+    display: block;
+    content: attr(data-percent) "%";
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    width: fit-content;
+    height: fit-content;
+    font-size: 35px;
+    transform: translateY(200%) translateX(-50%);
+}
