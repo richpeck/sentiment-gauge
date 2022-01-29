@@ -43,7 +43,7 @@
   border-bottom: 10px solid transparent;
   user-select: none;
   width: 100%;
-  max-width: 100%;
+  max-width: calc(100% - (var(--margin) * 2));
   box-sizing: border-box;
   background:
     /*small circle in center */
