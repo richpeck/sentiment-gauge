@@ -17,6 +17,6 @@
 ?>
 
 <div class="wrap">
-    <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+    <h1><?php _e( get_admin_page_title(), 'sentiment_gauge' ); ?></h1>
     <?php do_settings_sections( $this->plugin_name ); ?>
 </div>
